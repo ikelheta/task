@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 
-const EmployeerSchema = new mongoose.Schema({
+export const CustomerSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide name'],
@@ -21,20 +21,36 @@ const EmployeerSchema = new mongoose.Schema({
     type: String,
     required: [true, "please provide city"]
   },
-
+  national: {
+    type: String,
+    required: [true, "please provide a national"]
+  },
   password: {
     type: String,
     required: [true, 'Please provide password'],
     minlength: 6,
   },
-  company: {
+  level: {
     type: String,
-    required: [true, "please provide a company"],
-    maxlength: 50,
-    minlength: 3,
-  }
-
+    enum: ['junior', 'midlevel', 'senior'],
+    required: [true, 'Please provide your experience level'],
+  },
+  views: [{
+    type: mongoose.Types.ObjectId,
+    default: []
+  }],
+  bio: {
+    type: String,
+    default: "",
+    maxlength: 500,
+  },
+  proglang: {
+    type: [String],
+    required: [true, "please provide a programming lang"]
+  },
 
 })
 
-export default mongoose.model('Employeer', EmployeerSchema)
+
+export default mongoose.model("Customer", CustomerSchema)
+
